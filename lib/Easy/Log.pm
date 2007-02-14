@@ -44,7 +44,7 @@ use Exporter;
 our ( %EXPORT_TAGS, @ISA, @EXPORT_OK, @EXPORT, $VERSION );
 @ISA = qw( Exporter );
 
-$VERSION = '0.02_00';
+$VERSION = '0.02_01';
 
 %EXPORT_TAGS = (
                 # available constants for log level text names, these will never be filtered nor will warnings about them ever be made
@@ -281,7 +281,7 @@ our $hostname = `hostname`;
 chomp $hostname;
 $intlog->write($dll, '$hostname: ', $hostname );
 
-our @userinfo = getpwuid $<;
+our @userinfo = get_userinfo();
 our $username = $userinfo[0];
 
 my @pathinfo = (File::Spec->splitpath( File::Spec->rel2abs( $0 )));
@@ -1507,6 +1507,16 @@ sub _unlock {
     my $fh = shift;
     #flock($fh,LOCK_UN);
 }
+
+sub get_userinfo {
+    if ( $^O =~ /mswin/i ) {
+        return ( $ENV{USERNAME} );
+    }
+    else {
+        return getpwuid $<;
+    }
+}
+
 END {
     #    delete $FHS_NA{STDERR};
     #    delete $FHS_NA{STDOUT};

@@ -8,9 +8,7 @@ WriteMakefile(
               VERSION_FROM	=> 'lib/Easy/Log.pm',
               ABSTRACT_FROM     => 'lib/Easy/Log.pm',
 
-              PREREQ_PM		=> { qw( Filter::Simple .01
-                                       )
-                                   },
+              PREREQ_PM		=> { qw( Filter::Simple .01 ) },
 
 #              PM                => { qw[
 #                                        perl5/lib/Easy/Log.pm        $(INST_LIBDIR)/Log.pm
